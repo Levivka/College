@@ -1,5 +1,20 @@
-﻿using System;
-void TypesCsharp() {
+﻿Console.WriteLine("Введите номер работы с которой будем работать:");
+int work = Convert.ToInt32(Console.ReadLine());
+switch (work)
+{
+    case 1:
+        
+        TypesCsharp();
+        break;
+    case 2:
+
+        break;
+    case 3:
+        Sorting(Convert.ToInt32(Console.ReadLine()));
+        break;
+
+}
+static void TypesCsharp() {
     // типы значений в C#
     Console.WriteLine("Целочисленные значения: \n Тип: byte Минимальное значение: 0  Максимальное значение: 255 Размер данных: 1 байт");
     Console.WriteLine("Тип: sbyte Минимальное значение: -128  Максимальное значение: 127 Размер данных: 1 байт");
@@ -23,30 +38,31 @@ void TypesCsharp() {
     Console.WriteLine("Особые типы:");
     Console.WriteLine("Тип: object Размер данных: 4 байта на 32 разрядной системе и 8 байт на 64 разрядной");
 }
-void BitovieOperations()
+static void Sorting(int v)
 {
-    void metod1()
+    Console.WriteLine("Введите 5 значений для сортировки их пузырьком:");
+    int a =Convert.ToInt32(Console.ReadLine());
+    int b = Convert.ToInt32(Console.ReadLine());
+    int c = Convert.ToInt32(Console.ReadLine());
+    int d = Convert.ToInt32(Console.ReadLine());
+    int e = Convert.ToInt32(Console.ReadLine());
+    int[] arr = {a, b, c, d, e};
+    int temp = 0;
+    for (int write = 0; write < arr.Length; write++)
     {
-        Console.WriteLine("Введите значения 3 переменных;");
-        int a = Convert.ToInt32(Console.ReadLine());
-        int b = Convert.ToInt32(Console.ReadLine());
-        int c = Convert.ToInt32(Console.ReadLine());
-        int d = a * b * c;
-        Console.WriteLine(d);
+        for (int sort = 0; sort < arr.Length - 1; sort++)
+        {
+            if (arr[sort] > arr[sort + 1])
+            {
+                temp = arr[sort + 1];
+                arr[sort + 1] = arr[sort];
+                arr[sort] = temp;
+            }
+        }
     }
-}
-Console.WriteLine("Введите номер работы с которой будем работать:");
-int work = Convert.ToInt32(Console.ReadLine());
-switch (work)
-{
-    case 1:
-        TypesCsharp;
-        break;
-    case 2:
-        object k = BitovieOperations;
-        break;
-    case 3:
-        Console.WriteLine("Ваше имя - Sam");
-        break;
-
+    Console.WriteLine("Вот значения отсортированные методом пузырька:");
+    for (int i = 0; i < arr.Length; i++) {
+        Console.Write(arr[i] + " ");
+    }
+    Console.ReadKey();
 }

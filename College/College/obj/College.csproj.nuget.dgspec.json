@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\1\\source\\repos\\College\\College\\College.csproj": {}
+    "C:\\Users\\1\\Desktop\\Репозиторий Гит\\College\\College\\College.csproj": {}
   },
   "projects": {
-    "C:\\Users\\1\\source\\repos\\College\\College\\College.csproj": {
+    "C:\\Users\\1\\Desktop\\Репозиторий Гит\\College\\College\\College.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\1\\source\\repos\\College\\College\\College.csproj",
+        "projectUniqueName": "C:\\Users\\1\\Desktop\\Репозиторий Гит\\College\\College\\College.csproj",
         "projectName": "College",
-        "projectPath": "C:\\Users\\1\\source\\repos\\College\\College\\College.csproj",
+        "projectPath": "C:\\Users\\1\\Desktop\\Репозиторий Гит\\College\\College\\College.csproj",
         "packagesPath": "C:\\Users\\1\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\1\\source\\repos\\College\\College\\obj\\",
+        "outputPath": "C:\\Users\\1\\Desktop\\Репозиторий Гит\\College\\College\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\1\\AppData\\Roaming\\NuGet\\NuGet.Config",

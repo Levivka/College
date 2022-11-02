@@ -1,4 +1,7 @@
-﻿Console.WriteLine("Введите номер работы с которой будем работать:");
+﻿using System.Diagnostics.Metrics;
+using System.Reflection;
+
+Console.WriteLine("Введите номер работы с которой будем работать:");
 int work = Convert.ToInt32(Console.ReadLine());
 switch (work)
 {
@@ -10,7 +13,7 @@ switch (work)
 
         break;
     case 3:
-        Sorting(Convert.ToInt32(Console.ReadLine()));
+        Sorting();
         break;
 
 }
@@ -38,15 +41,15 @@ static void TypesCsharp() {
     Console.WriteLine("Особые типы:");
     Console.WriteLine("Тип: object Размер данных: 4 байта на 32 разрядной системе и 8 байт на 64 разрядной");
 }
-static void Sorting(int v)
+static void Sorting()
 {
     Console.WriteLine("Введите 5 значений для сортировки их пузырьком:");
-    int a =Convert.ToInt32(Console.ReadLine());
+    int a = Convert.ToInt32(Console.ReadLine());
     int b = Convert.ToInt32(Console.ReadLine());
     int c = Convert.ToInt32(Console.ReadLine());
     int d = Convert.ToInt32(Console.ReadLine());
     int e = Convert.ToInt32(Console.ReadLine());
-    int[] arr = {a, b, c, d, e};
+    int[] arr = { a, b, c, d, e };
     int temp = 0;
     for (int write = 0; write < arr.Length; write++)
     {
@@ -61,8 +64,36 @@ static void Sorting(int v)
         }
     }
     Console.WriteLine("Вот значения отсортированные методом пузырька:");
-    for (int i = 0; i < arr.Length; i++) {
-        Console.Write(arr[i] + " ");
+    for (int i = 0; i < arr.Length; i++)
+    {
+        Console.Write(arr[i] + " "); 
     }
-    Console.ReadKey();
-}
+
+        Console.ReadLine();
+
+        Console.WriteLine("Введите 5 значений для массива:");
+        int a1 = Convert.ToInt32(Console.ReadLine());
+        int b1 = Convert.ToInt32(Console.ReadLine());
+        int c1 = Convert.ToInt32(Console.ReadLine());
+        int d1 = Convert.ToInt32(Console.ReadLine());
+        int e1 = Convert.ToInt32(Console.ReadLine());
+        int[] arr1 = { a1, b1, c1, d1, e1 };
+        Console.Write("Ввести элемент поиска:");
+        int j = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Линейный поиск:");
+        int k = -1;
+        for (int h = 0; h < arr1.Length; h++)
+        {
+            if (arr1[h] == j)
+            {
+                k = h;
+            };
+        }
+        if (k > -1)
+        {
+            Console.WriteLine("Номер элемента = {0}", k);
+        }
+
+    }
+
+

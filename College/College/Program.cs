@@ -1,7 +1,8 @@
 ﻿using System.Diagnostics.Metrics;
 using System.Reflection;
+using System.Runtime.ExceptionServices;
 
-Console.WriteLine("Введите номер работы с которой будем работать:");
+Console.WriteLine("Введите номер работы с которой будем работать: \n 1 - Типы данных в c# \n 2 - Сортировка пузырьком и линейный поиск \n 3 - Нахождение n-ого числа Фибоначи \n 4 - Нахождение сумм арифмитической и геометрической прогрессий \n 5 - Нахождение общего делителя");
 int work = Convert.ToInt32(Console.ReadLine());
 switch (work)
 {
@@ -10,11 +11,18 @@ switch (work)
         TypesCsharp();
         break;
     case 2:
-
+        Fibonachi();
         break;
     case 3:
         Sorting();
         break;
+    case 4:
+        Progressia();
+        break;
+    case 5:
+        NOD();
+        break;
+        
 
 }
 static void TypesCsharp() {
@@ -95,5 +103,154 @@ static void Sorting()
         }
 
     }
+static void Fibonachi()
+{
+    Console.WriteLine("Нахождение N-ого числа фибоначи:");
+    Console.WriteLine("Введите номер элемента который вы хотите найти среди чисел фибоначи");
+    int Number = Convert.ToInt32(Console.ReadLine());
+    switch (Number)
+    {
+        case < 1:
+            Console.WriteLine("Такого числа нету в ряде Фибоначи");
+            break;
+        case > 48:
+                Console.WriteLine("Программа не сможет вычислить данное число ряда Фибоначи");
+            break;
+        default:
+            int FirstNumber = 1;
+            int SecondNumber = 1;
+            int SummaFib;
+            int j = 3;
+            while (j <= Number)
+            {
+                SummaFib = FirstNumber + SecondNumber;
+                FirstNumber = SecondNumber;
+                SecondNumber = SummaFib;
+                j++;
+            }
+            Console.WriteLine("Под номером {0} в ряде Фибоначчи стоит число {1}", Number, FirstNumber);
+            break;
+    }
+
+}
+static void Progressia()
+{
+    Console.WriteLine("Выберите с какой прогрессией будем работать:\n 1 - Арифметическая \n 2 - Геометрическая");
+    int progressia = Convert.ToInt32(Console.ReadLine());
+    if (progressia == 1)
+    {
+        Console.WriteLine("С помощью чего будем решать? \n 1 - Цикл \n 2 - Формула");
+        int vibor = Convert.ToInt32(Console.ReadLine());
+        if (vibor == 1)
+        {
+            int a;
+            int step;
+            int n;
+            int sum = 0;
+            int subSum;
+            Console.WriteLine("Введите первый элемент");
+            a = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Введите знаменатель прогрессии");
+            step = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Введите число элементов");
+            n = Convert.ToInt32(Console.ReadLine());
+
+            for (int i = 0; i < n; i++)
+            {
+                subSum = a;
+                subSum += step;
+                sum += subSum;
+            }
+            Console.WriteLine("Сумма членов прогрессии равна {0}",sum);
+            Console.ReadLine();
+        }
+       else if (vibor == 2)
+        
+        {
+            int a1;
+            int step1;
+            int n1;
+            int sum1 = 0;
+            Console.WriteLine("Введите первый элемент");
+            a1 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Введите знаменатель прогрессии");
+            step1 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Введите число элементов");
+            n1 = Convert.ToInt32(Console.ReadLine());
+
+            for (int i = 1; i <= n1; i++)
+            {
+                sum1 += a1 + (i - 1) * step1;
+            }
+            Console.WriteLine("Сумма членов прогрессии равна " + Convert.ToString(sum1));
+            Console.ReadKey();
+        }
+        else
+        {
+            Console.WriteLine("Ошибка, такого пункта не существует 0_o");
+        }
+    }
+    else if (progressia == 2)
+    {
+        Console.WriteLine("С помощью чего будем решать? \n 1 - Формула \n 2 - Цикл");
+        int vibor1 = Convert.ToInt32(Console.ReadLine());
+        if (vibor1 == 1)
+        {
+            Console.WriteLine("Введите первое число прогрессии:");
+            double a1 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Введите знаменатель прогрессии:");
+            double q = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Введите число элементов");
+            int n = Convert.ToInt32(Console.ReadLine());
+            int h = n;
+            double sum = 0;
+
+
+            if (q < 1)
+            {
+                sum = 0;
+            }
+            else
+            {
+                sum = (a1 * (Math.Pow(q, h) - 1)) / (q - 1);
+                Console.WriteLine("Сумма геометрической прогрессии равна {0}", sum);
+            }
+        }
+        if (vibor1 == 2)
+        {
+            Console.WriteLine("Введите первое значение прогрессии:");
+            int FirstNum = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Введите знаменатель прогрессии:");
+            int q = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Введите количество элементов прогрессии:");
+            int n = Convert.ToInt32(Console.ReadLine());
+            int subsum;
+            int sum = 0;
+            subsum = FirstNum;
+            sum += subsum;
+            for (int i = 1; i < n; i++)
+            { 
+                subsum *= q;
+                sum += subsum;
+            }
+            Console.WriteLine("Сумма геометрической прогрессии равна {0}", sum);
+        }
+        else
+        {
+            Console.WriteLine("Ошибка, такого пункта не существует 0_o");
+        }  
+        
+    }
+    else
+    {
+        Console.WriteLine("Ошибка, такого пункта не существует 0_o");
+    }
+    
+}
+static void NOD()
+{
+    
+}  
+
 
 

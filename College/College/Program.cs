@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Runtime.ExceptionServices;
 
-Console.WriteLine("Введите номер работы с которой будем работать: \n 1 - Типы данных в c# \n 2 - Сортировка пузырьком и линейный поиск \n 3 - Нахождение n-ого числа Фибоначи \n 4 - Нахождение сумм арифмитической и геометрической прогрессий \n 5 - Нахождение общего делителя");
+Console.WriteLine("Введите номер работы с которой будем работать: \n 1 - Типы данных в c# \n 2 - Сортировка пузырьком и линейный поиск \n 3 - Нахождение n-ого числа Фибоначи \n 4 - Нахождение сумм арифмитической и геометрической прогрессий \n 5 - Нахождение общего делителя \n 6 - Перевод из десятичной системы счисчления в двоичную");
 int work = Convert.ToInt32(Console.ReadLine());
 switch (work)
 {
@@ -22,8 +22,12 @@ switch (work)
     case 5:
         NOD();
         break;
-        
-
+    case 6:
+        Perevod();
+        break;
+    case 7:
+        BinarniyPoisk();
+        break;
 }
 static void TypesCsharp() {
     // типы значений в C#
@@ -249,8 +253,108 @@ static void Progressia()
 }
 static void NOD()
 {
-    
+    int nod;
+    Console.WriteLine("Введите 2 числа у которых нужно будет найти наибольший общий делитель");
+    int m = Convert.ToInt32(Console.ReadLine());
+    int n = Convert.ToInt32(Console.ReadLine());
+
+    while (m != n)
+    {
+        if (m > n)
+        {
+            m = m - n;
+        }
+        else
+        {
+            n = n - m;
+        }
+    }
+
+    nod = n;
+    Console.WriteLine("НОД данных чисел равен:{0} ", nod);
+
+    Console.ReadKey();
 }  
+static void Perevod()
+{
+    Console.WriteLine("Введите число которое нужно преобразовать в двоичную систему счисления:");
+    int x = Convert.ToInt32(Console.ReadLine());
+    int x1 = x;
+    void Perevod10(int x)
+    {
+        if (x >= 2)
+        {
+            Perevod10(x / 2);
+            Console.Write(x % 2);
+        }
+        else
+        {
+            Console.Write("Число {0} в двоичной сиситеме счисления будет выглядеть так {1}", x1, x % 2);
+        }
+    }
+        if (x >= 0)
+        {
+            Perevod10(x);
+        }
+        else
+        {
+            Console.WriteLine("Данное число невозможно преобразовать");
+        }
+        Console.ReadKey();
 
 
+    
+}
+static void BinarniyPoisk()
+{
+        int[] myArray = new int[5];
+        Random rand = new Random();
+    int x = 0;
+    int a = 0;
+    int b = 0;
+    int c = 0;
+    int d = 0;
+    int h = 0;
+    for (int k = x; k < myArray.Length; k++)
+        {
+            myArray[x] = rand.Next(20);
+            Console.WriteLine("Значение элемента массива {0} = {1}", k, myArray[x]);
+        switch (k)
+        {
+            case 0:
+                a = myArray[x];
+                break;
+            case 1:
+                b = myArray[x];
+                break;
+            case 2:
+                c = myArray[x];
+                break;
+            case 3:
+                d = myArray[x];
+                break;
+            case 4:
+                h = myArray[x];
+                break;
+        }
+        }
+    Console.WriteLine("Введите одно из чисел которое хотите найти: \n {0} \n {1} \n {2} \n {3} \n {4}",a,b,c,d,h);
+    int error = 0;
+    
+    
+        int number = Convert.ToInt32(Console.ReadLine());
+        int output, output2, output3, output4, output5;
+         output5 = number == h ? 5 : error = 1;
+         output4 = number == d ? 4 : output5;
+         output3 = number == c ? 3 : output4;
+        output2 = number == b ? 2 : output3;
+         output = number == a ? 1 : output2;
+    if (error == 0)
+        Console.WriteLine("Число {0} находится под номером {1}", number, output);
+    
+    else if (error == 1)
+    {
+        Console.WriteLine("Ошибка");
+    }
+}   
 

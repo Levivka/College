@@ -1,8 +1,4 @@
-﻿using System.Diagnostics.Metrics;
-using System.Reflection;
-using System.Runtime.ExceptionServices;
-
-Console.WriteLine("Введите номер работы с которой будем работать: \n 1 - Типы данных в c# \n 2 - Сортировка пузырьком и линейный поиск \n 3 - Нахождение n-ого числа Фибоначи \n 4 - Нахождение сумм арифмитической и геометрической прогрессий \n 5 - Нахождение общего делителя \n 6 - Перевод из десятичной системы счисчления в двоичную");
+﻿Console.WriteLine("Введите номер работы с которой будем работать: \n 1 - Типы данных в c# \n 2 - Сортировка пузырьком и линейный поиск \n 3 - Нахождение n-ого числа Фибоначи \n 4 - Нахождение сумм арифмитической и геометрической прогрессий \n 5 - Нахождение общего делителя \n 6 - Перевод из десятичной системы счисчления в двоичную \n 7 - Тернарные операции для бинарного выбора \n 8 - Рассчитывание ДКТ для матрицы 8 порядка \n 9 - Карта звёздного неба");
 int work = Convert.ToInt32(Console.ReadLine());
 switch (work)
 {
@@ -11,44 +7,50 @@ switch (work)
         TypesCsharp();
         break;
     case 2:
-        Fibonachi();
+        Sorting();
         break;
     case 3:
-        Sorting();
+        Fibonachi();
         break;
     case 4:
         Progressia();
         break;
     case 5:
-        NOD();
+        Nod();
         break;
     case 6:
         Perevod();
         break;
     case 7:
-        BinarniyPoisk();
+        TernarnieOp();
+        break;
+    case 8:
+        Dkt();
+        break;
+    case 9:
+        StarMap();
         break;
 }
 static void TypesCsharp() {
     // типы значений в C#
-    Console.WriteLine("Целочисленные значения: \n Тип: byte Минимальное значение: 0  Максимальное значение: 255 Размер данных: 1 байт");
-    Console.WriteLine("Тип: sbyte Минимальное значение: -128  Максимальное значение: 127 Размер данных: 1 байт");
-    Console.WriteLine("Тип: short Минимальное значение: -32768  Максимальное значение: 32767 Размер данных: 2 байта");
-    Console.WriteLine("Тип: ushort Минимальное значение: 0  Максимальное значение: 65535 Размер данных: 2 байта");
-    Console.WriteLine("Тип: int Минимальное значение: -2147483648  Максимальное значение: 2147483647 Размер данных: 4 байта");
-    Console.WriteLine("Тип: uint Минимальное значение: 0  Максимальное значение: 4294967295 Размер данных: 4 байта");
-    Console.WriteLine("Тип: long Минимальное значение: –9223372036854775808  Максимальное значение: 9223372036854775807 Размер данных: 8 байт");
-    Console.WriteLine("Тип: ulong Минимальное значение: 0  Максимальное значение:  18446744073709551615 Размер данных: 8 байт");
+    Console.WriteLine($"Целочисленные значения: \n Тип: byte Минимальное значение: {Byte.MinValue}  Максимальное значение: {Byte.MaxValue} Размер данных: 1 байт");
+    Console.WriteLine($"Тип: sbyte Минимальное значение: {SByte.MinValue}  Максимальное значение: {SByte.MaxValue} Размер данных: 1 байт");
+    Console.WriteLine($"Тип: short Минимальное значение: {short.MinValue}  Максимальное значение: {short.MaxValue} Размер данных: 2 байта");
+    Console.WriteLine($"Тип: ushort Минимальное значение: {ushort.MinValue}  Максимальное значение: {short.MaxValue} Размер данных: 2 байта");
+    Console.WriteLine($"Тип: int Минимальное значение: {int.MinValue}  Максимальное значение: {int.MaxValue} Размер данных: 4 байта");
+    Console.WriteLine($"Тип: uint Минимальное значение: {uint.MinValue}  Максимальное значение: {uint.MaxValue} Размер данных: 4 байта");
+    Console.WriteLine($"Тип: long Минимальное значение: {long.MinValue}  Максимальное значение: {long.MaxValue} Размер данных: 8 байт");
+    Console.WriteLine($"Тип: ulong Минимальное значение: {ulong.MinValue}  Максимальное значение:  {ulong.MaxValue} Размер данных: 8 байт");
     Console.WriteLine("Далее у нас идут числа с плавающей точкой(Нажмите Enter для продолжения):");
     Console.ReadLine();
-    Console.WriteLine("Тип: float Минимальное значение: -3,402283E+38  Максимальное значение: 3,402283E+38 Размер данных: 4 байта");
-    Console.WriteLine("Тип: double Минимальное значение: -1,79769313486232E+308  Максимальное значение: 1,79769313486232E+308 Размер данных: 8 байт");
-    Console.WriteLine("Тип: decimal Минимальное значение: -79228162514264337593543950335  Максимальное значение: 79228162514264337593543950335 Размер данных: 16 байт");
+    Console.WriteLine($"Тип: float Минимальное значение: {float.MinValue}  Максимальное значение: {float.MaxValue} Размер данных: 4 байта");
+    Console.WriteLine($"Тип: double Минимальное значение: {double.MinValue}  Максимальное значение: {double.MaxValue} Размер данных: 8 байт");
+    Console.WriteLine($"Тип: decimal Минимальное значение: {decimal.MinValue}  Максимальное значение: {decimal.MaxValue} Размер данных: 16 байт");
     Console.WriteLine("Логический тип:");
     Console.WriteLine("Тип: bool Минимальное значение:False(0) Максимальное значение: True(1) Размер данных: 1 байт");
     Console.WriteLine("А теперь символьные типы:");
     Console.ReadLine();
-    Console.WriteLine("Тип: char Минимальное значение:   Максимальное значение: ? Размер данных: 2 байта");
+    Console.WriteLine($"Тип: char Минимальное значение: {char.MinValue} Максимальное значение: {char.MaxValue} Размер данных: 2 байта");
     Console.WriteLine("Тип: string Минимальное значение: В зависимости от длины строки  Максимальное значение: В зависимости от длины строки Размер данных: В зависимости от длины строки");
     Console.WriteLine("Особые типы:");
     Console.WriteLine("Тип: object Размер данных: 4 байта на 32 разрядной системе и 8 байт на 64 разрядной");
@@ -61,8 +63,9 @@ static void Sorting()
     int c = Convert.ToInt32(Console.ReadLine());
     int d = Convert.ToInt32(Console.ReadLine());
     int e = Convert.ToInt32(Console.ReadLine());
+    //динамический массив (n), где n и y вводятся с консоли (Console.ReadLine()) и заполняется через класс Random (rand.Next())
     int[] arr = { a, b, c, d, e };
-    int temp = 0;
+    int temp;
     for (int write = 0; write < arr.Length; write++)
     {
         for (int sort = 0; sort < arr.Length - 1; sort++)
@@ -90,6 +93,7 @@ static void Sorting()
         int d1 = Convert.ToInt32(Console.ReadLine());
         int e1 = Convert.ToInt32(Console.ReadLine());
         int[] arr1 = { a1, b1, c1, d1, e1 };
+        //динамический массив (n), где n и y вводятся с консоли (Console.ReadLine()) и заполняется через класс Random (rand.Next())
         Console.Write("Ввести элемент поиска:");
         int j = Convert.ToInt32(Console.ReadLine());
         Console.WriteLine("Линейный поиск:");
@@ -98,8 +102,8 @@ static void Sorting()
         {
             if (arr1[h] == j)
             {
-                k = h;
-            };
+                k = h + 1;
+            }
         }
         if (k > -1)
         {
@@ -111,8 +115,10 @@ static void Fibonachi()
 {
     Console.WriteLine("Нахождение N-ого числа фибоначи:");
     Console.WriteLine("Введите номер элемента который вы хотите найти среди чисел фибоначи");
-    int Number = Convert.ToInt32(Console.ReadLine());
-    switch (Number)
+    int number = Convert.ToInt32(Console.ReadLine());
+    // заменить свитч на if
+    
+    switch (number)
     {
         case < 1:
             Console.WriteLine("Такого числа нету в ряде Фибоначи");
@@ -121,18 +127,17 @@ static void Fibonachi()
                 Console.WriteLine("Программа не сможет вычислить данное число ряда Фибоначи");
             break;
         default:
-            int FirstNumber = 1;
-            int SecondNumber = 1;
-            int SummaFib;
-            int j = 3;
-            while (j <= Number)
+            int firstNumber = 0;
+            int secondNumber = 1;
+            int j = 2;
+            while (j <= number)
             {
-                SummaFib = FirstNumber + SecondNumber;
-                FirstNumber = SecondNumber;
-                SecondNumber = SummaFib;
+                var summaFib = firstNumber + secondNumber;
+                firstNumber = secondNumber;
+                secondNumber = summaFib;
                 j++;
             }
-            Console.WriteLine("Под номером {0} в ряде Фибоначчи стоит число {1}", Number, FirstNumber);
+            Console.WriteLine("Под номером {0} в ряде Фибоначчи стоит число {1}", number, firstNumber);
             break;
     }
 
@@ -207,12 +212,13 @@ static void Progressia()
             Console.WriteLine("Введите число элементов");
             int n = Convert.ToInt32(Console.ReadLine());
             int h = n;
-            double sum = 0;
+            double sum;
 
 
             if (q < 1)
             {
                 sum = 0;
+                // добавить ввывод как в 224 строчке
             }
             else
             {
@@ -223,14 +229,14 @@ static void Progressia()
         if (vibor1 == 2)
         {
             Console.WriteLine("Введите первое значение прогрессии:");
-            int FirstNum = Convert.ToInt32(Console.ReadLine());
+            int firstNum = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Введите знаменатель прогрессии:");
             int q = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Введите количество элементов прогрессии:");
             int n = Convert.ToInt32(Console.ReadLine());
             int subsum;
             int sum = 0;
-            subsum = FirstNum;
+            subsum = firstNum;
             sum += subsum;
             for (int i = 1; i < n; i++)
             { 
@@ -251,7 +257,7 @@ static void Progressia()
     }
     
 }
-static void NOD()
+static void Nod()
 {
     int nod;
     Console.WriteLine("Введите 2 числа у которых нужно будет найти наибольший общий делитель");
@@ -305,7 +311,7 @@ static void Perevod()
 
     
 }
-static void BinarniyPoisk()
+static void TernarnieOp()
 {
         int[] myArray = new int[5];
         Random rand = new Random();
@@ -356,5 +362,151 @@ static void BinarniyPoisk()
     {
         Console.WriteLine("Ошибка");
     }
-}   
+}
+static void Dkt()
+{
+    
+        Console.WriteLine("Введите количество строк в нашей матрице:");
+        int rows = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Введите количество столбцов в нашей матрице:");
+        int colls = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine();
+        Console.WriteLine("Исходная матрица:");
+        int[,] mas = new int[rows, colls];
+        Random rnd = new Random();
+        for (int i = 0; i < rows; i++) 
+        {
+            for (int j = 0; j < colls; j++)
+            {
+                mas[i, j] = rnd.Next(0, 10);
+                Console.Write(mas[i, j] + "\t");
+        
+            }
 
+            Console.WriteLine();
+    
+    
+        }
+        Console.WriteLine();
+        Console.WriteLine("Транспонированная матрица:");
+        int[,] Transpose = new int[colls,rows];
+        for (int i = 0; i < colls; i++)
+        {
+            for (int j = 0; j < rows; j++)
+            {
+                Transpose[i, j] = mas[j, i];
+        
+                Console.Write(Transpose[i, j] + "\t");
+            }
+
+            Console.WriteLine();
+        }
+        Console.WriteLine();
+        Console.WriteLine("ДКТ матрицы 8 порядка:");
+        //убрать массив и использовать i/j (просто инкременты цикла)
+        double[,] massive =
+        {
+            { 1, 2, 3, 4, 5, 6, 7, 8 }, { 1, 2, 3, 4, 5, 6, 7, 8 }, { 1, 2, 3, 4, 5, 6, 7, 8 }, { 1, 2, 3, 4, 5, 6, 7, 8 },
+            { 1, 2, 3, 4, 5, 6, 7, 8 }, { 1, 2, 3, 4, 5, 6, 7, 8 }, { 1, 2, 3, 4, 5, 6, 7, 8 }, { 1, 2, 3, 4, 5, 6, 7, 8 }
+        };
+        //rows & colls всегда равны 8
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < colls; j++)
+            {
+        
+                if (j == 0) massive[i, j] = (1 / Math.Sqrt(8));
+                if (j > 0) massive[i,j] = Math.Sqrt(0.25) * Math.Cos((2 * i + 1) * j * Math.PI / (2 * 8));
+                Console.Write($"{massive[i, j]} \t");
+            }
+            Console.WriteLine();
+        }
+
+        Console.ReadKey();
+    }
+static void StarMap()
+{
+    int length = 24;int shirina = 180;
+    for (int i = 0; i < length; i++)
+    {
+        for (int j = 0; j < shirina; j++)
+        {
+            if (i == 0 || i == (length - 1))
+            {
+                Console.Write("═");
+            }
+            else
+            {
+                if (j == 0 || j == (shirina - 1))
+                {
+                    Console.Write("║");
+                }
+                else
+                {
+                    
+                    
+                        Console.Write(" ");
+                    
+                }
+            }
+        }    Console.WriteLine();
+    }
+    // Треугольник 
+Console.SetCursorPosition(20, 2); Console.Write("*");
+Console.SetCursorPosition(25, 2); Console.Write("*");
+Console.SetCursorPosition(22, 5); Console.Write("*");
+
+// Большая медведица
+Console.SetCursorPosition(113, 4); Console.Write("*");
+Console.SetCursorPosition(115, 2); Console.Write("*");
+Console.SetCursorPosition(125, 3); Console.Write("*");
+Console.SetCursorPosition(124, 5); Console.Write("*");
+Console.SetCursorPosition(128, 6); Console.Write("*");
+Console.SetCursorPosition(130, 7); Console.Write("*");
+Console.SetCursorPosition(134, 8); Console.Write("*");
+
+//  Кит
+Console.SetCursorPosition(45, 2); Console.Write("*");
+Console.SetCursorPosition(37, 4); Console.Write("*");
+Console.SetCursorPosition(49, 3); Console.Write("*");
+Console.SetCursorPosition(52, 4); Console.Write("*");
+Console.SetCursorPosition(47, 5); Console.Write("*");
+
+// Жираф
+Console.SetCursorPosition(23, 9); Console.Write("*");
+Console.SetCursorPosition(29, 10); Console.Write("*");
+Console.SetCursorPosition(34, 11); Console.Write("*");
+Console.SetCursorPosition(39, 14); Console.Write("*");
+Console.SetCursorPosition(28, 15); Console.Write("*");
+
+// Северная корона
+Console.SetCursorPosition(70, 9); Console.Write("*");
+Console.SetCursorPosition(77, 10); Console.Write("*");
+Console.SetCursorPosition(82, 8); Console.Write("*");
+Console.SetCursorPosition(81, 7); Console.Write("*");
+Console.SetCursorPosition(78, 6); Console.Write("*");
+Console.SetCursorPosition(74, 6); Console.Write("*");
+
+// Хвост змеи
+Console.SetCursorPosition(96, 9); Console.Write("*");
+Console.SetCursorPosition(96, 11); Console.Write("*");
+Console.SetCursorPosition(99, 10); Console.Write("*");
+Console.SetCursorPosition(110, 11); Console.Write("*");
+Console.SetCursorPosition(113, 14); Console.Write("*");
+
+// Возничий
+Console.SetCursorPosition(53, 17); Console.Write("*");
+Console.SetCursorPosition(44, 18); Console.Write("*");
+Console.SetCursorPosition(49, 19); Console.Write("*");
+Console.SetCursorPosition(44, 19); Console.Write("*");
+
+// Малая медведица
+Console.SetCursorPosition(142, 13); Console.Write("*");
+Console.SetCursorPosition(148, 14); Console.Write("*");
+Console.SetCursorPosition(152, 15); Console.Write("*");
+Console.SetCursorPosition(160, 14); Console.Write("*");
+Console.SetCursorPosition(168, 13); Console.Write("*");
+Console.SetCursorPosition(160, 16); Console.Write("*");
+Console.SetCursorPosition(169, 15); Console.Write("*");
+Console.ReadKey();
+}

@@ -1,4 +1,5 @@
-﻿Console.WriteLine("Введите номер работы с которой будем работать: \n 1 - Типы данных в c# \n 2 - Сортировка пузырьком и линейный поиск \n 3 - Нахождение n-ого числа Фибоначи \n 4 - Нахождение сумм арифмитической и геометрической прогрессий \n 5 - Нахождение общего делителя \n 6 - Перевод из десятичной системы счисчления в двоичную \n 7 - Тернарные операции для бинарного выбора \n 8 - Рассчитывание ДКТ для матрицы 8 порядка \n 9 - Карта звёздного неба");
+﻿using Npgsql;
+Console.WriteLine("Введите номер работы с которой будем работать: \n 1 - Типы данных в c# \n 2 - Сортировка пузырьком и линейный поиск \n 3 - Нахождение n-ого числа Фибоначи \n 4 - Нахождение сумм арифмитической и геометрической прогрессий \n 5 - Нахождение общего делителя \n 6 - Перевод из десятичной системы счисчления в двоичную \n 7 - Тернарные операции для бинарного выбора \n 8 - Рассчитывание ДКТ для матрицы 8 порядка \n 9 - Карта звёздного неба");
 int work = Convert.ToInt32(Console.ReadLine());
 switch (work)
 {
@@ -30,6 +31,9 @@ switch (work)
     case 9:
         StarMap();
         break;
+    case 10:
+        BD();
+        break;
 }
 static void TypesCsharp() {
     // типы значений в C#
@@ -57,43 +61,47 @@ static void TypesCsharp() {
 }
 static void Sorting()
 {
-    Console.WriteLine("Введите 5 значений для сортировки их пузырьком:");
-    int a = Convert.ToInt32(Console.ReadLine());
-    int b = Convert.ToInt32(Console.ReadLine());
-    int c = Convert.ToInt32(Console.ReadLine());
-    int d = Convert.ToInt32(Console.ReadLine());
-    int e = Convert.ToInt32(Console.ReadLine());
-    //динамический массив (n), где n и y вводятся с консоли (Console.ReadLine()) и заполняется через класс Random (rand.Next())
-    int[] arr = { a, b, c, d, e };
+    Console.WriteLine("Введите размер массива для сортировки значений из них методом пузырька:");
+    int ammount = Convert.ToInt32(Console.ReadLine());  //динамический массив (n), где n и y вводятся с консоли (Console.ReadLine()) и заполняется через класс Random (rand.Next()) \/
+    int[] array = new int[ammount];
+    Random rand = new Random();
+    for (int i = 0; i < array.Length; i++)
+        array[i] = rand.Next(0, 50);
+    Console.WriteLine("Выведем наш массив на экран:");
+    var str = string.Join(" ", array);
+    Console.WriteLine(str);
+
     int temp;
-    for (int write = 0; write < arr.Length; write++)
+    for (int write = 0; write < array.Length; write++)
     {
-        for (int sort = 0; sort < arr.Length - 1; sort++)
+        for (int sort = 0; sort < array.Length - 1; sort++)
         {
-            if (arr[sort] > arr[sort + 1])
+            if (array[sort] > array[sort + 1])
             {
-                temp = arr[sort + 1];
-                arr[sort + 1] = arr[sort];
-                arr[sort] = temp;
+                temp = array[sort + 1];
+                array[sort + 1] = array[sort];
+                array[sort] = temp;
             }
         }
     }
     Console.WriteLine("Вот значения отсортированные методом пузырька:");
-    for (int i = 0; i < arr.Length; i++)
+    for (int i = 0; i < array.Length; i++)
     {
-        Console.Write(arr[i] + " "); 
+        Console.Write(array[i] + " "); 
     }
 
         Console.ReadLine();
 
-        Console.WriteLine("Введите 5 значений для массива:");
-        int a1 = Convert.ToInt32(Console.ReadLine());
-        int b1 = Convert.ToInt32(Console.ReadLine());
-        int c1 = Convert.ToInt32(Console.ReadLine());
-        int d1 = Convert.ToInt32(Console.ReadLine());
-        int e1 = Convert.ToInt32(Console.ReadLine());
-        int[] arr1 = { a1, b1, c1, d1, e1 };
-        //динамический массив (n), где n и y вводятся с консоли (Console.ReadLine()) и заполняется через класс Random (rand.Next())
+        Console.WriteLine("Введите размер массива для сортировки значений из них методом пузырька:");
+        int ammount1 = Convert.ToInt32(Console.ReadLine());  //динамический массив (n), где n и y вводятся с консоли (Console.ReadLine()) и заполняется через класс Random (rand.Next()) \/
+        int[] arr1 = new int[ammount1];
+        Random rand1 = new Random();
+        for (int i = 0; i < arr1.Length; i++)
+            arr1[i] = rand1.Next(0, 50);
+        Console.WriteLine("Выведем наш массив на экран:");
+        var str1 = string.Join(" ", arr1);
+        Console.WriteLine(str1);
+        //динамический массив (n), где n и y вводятся с консоли (Console.ReadLine()) и заполняется через класс Random (rand.Next()) \/
         Console.Write("Ввести элемент поиска:");
         int j = Convert.ToInt32(Console.ReadLine());
         Console.WriteLine("Линейный поиск:");
@@ -116,31 +124,31 @@ static void Fibonachi()
     Console.WriteLine("Нахождение N-ого числа фибоначи:");
     Console.WriteLine("Введите номер элемента который вы хотите найти среди чисел фибоначи");
     int number = Convert.ToInt32(Console.ReadLine());
-    // заменить свитч на if
-    
-    switch (number)
+    // заменить свитч на if \/
+    if (number <= 1)
     {
-        case < 1:
-            Console.WriteLine("Такого числа нету в ряде Фибоначи");
-            break;
-        case > 48:
-                Console.WriteLine("Программа не сможет вычислить данное число ряда Фибоначи");
-            break;
-        default:
-            int firstNumber = 0;
-            int secondNumber = 1;
-            int j = 2;
-            while (j <= number)
-            {
-                var summaFib = firstNumber + secondNumber;
-                firstNumber = secondNumber;
-                secondNumber = summaFib;
-                j++;
-            }
-            Console.WriteLine("Под номером {0} в ряде Фибоначчи стоит число {1}", number, firstNumber);
-            break;
-    }
+        Console.WriteLine("Такого числа нету в ряде Фибоначи");
 
+    }
+    else if (number >= 48)
+    {
+        Console.WriteLine("Программа не сможет вычислить данное число ряда Фибоначи");
+    }
+    else
+    {
+        int firstNumber = 0;
+        int secondNumber = 1;
+        int j = 2;
+        while (j <= number)
+        {
+            var summaFib = firstNumber + secondNumber;
+            firstNumber = secondNumber;
+            secondNumber = summaFib;
+            j++;
+        }
+
+        Console.WriteLine("Под номером {0} в ряде Фибоначчи стоит число {1}", number, firstNumber);
+    }
 }
 static void Progressia()
 {
@@ -218,7 +226,7 @@ static void Progressia()
             if (q < 1)
             {
                 sum = 0;
-                // добавить ввывод как в 224 строчке
+                Console.WriteLine("{0}", sum);
             }
             else
             {
@@ -465,19 +473,20 @@ Console.SetCursorPosition(128, 6); Console.Write("*");
 Console.SetCursorPosition(130, 7); Console.Write("*");
 Console.SetCursorPosition(134, 8); Console.Write("*");
 
-//  Кит
+//  Рак
 Console.SetCursorPosition(45, 2); Console.Write("*");
-Console.SetCursorPosition(37, 4); Console.Write("*");
-Console.SetCursorPosition(49, 3); Console.Write("*");
-Console.SetCursorPosition(52, 4); Console.Write("*");
-Console.SetCursorPosition(47, 5); Console.Write("*");
+Console.SetCursorPosition(47, 4); Console.Write("*");
+Console.SetCursorPosition(46, 5); Console.Write("*");
+Console.SetCursorPosition(42, 7); Console.Write("*");
+Console.SetCursorPosition(55, 8); Console.Write("*");
 
-// Жираф
-Console.SetCursorPosition(23, 9); Console.Write("*");
-Console.SetCursorPosition(29, 10); Console.Write("*");
-Console.SetCursorPosition(34, 11); Console.Write("*");
-Console.SetCursorPosition(39, 14); Console.Write("*");
-Console.SetCursorPosition(28, 15); Console.Write("*");
+// Щит
+Console.SetCursorPosition(14, 9); Console.Write("*");
+Console.SetCursorPosition(17, 12); Console.Write("*");
+Console.SetCursorPosition(18, 13); Console.Write("*");
+Console.SetCursorPosition(28, 16); Console.Write("*");
+Console.SetCursorPosition(25, 12); Console.Write("*");
+
 
 // Северная корона
 Console.SetCursorPosition(70, 9); Console.Write("*");
@@ -495,10 +504,12 @@ Console.SetCursorPosition(110, 11); Console.Write("*");
 Console.SetCursorPosition(113, 14); Console.Write("*");
 
 // Возничий
-Console.SetCursorPosition(53, 17); Console.Write("*");
+Console.SetCursorPosition(53, 16); Console.Write("*");
 Console.SetCursorPosition(44, 18); Console.Write("*");
 Console.SetCursorPosition(49, 19); Console.Write("*");
 Console.SetCursorPosition(44, 19); Console.Write("*");
+Console.SetCursorPosition(48, 17); Console.Write("*");
+Console.SetCursorPosition(52, 18); Console.Write("*");
 
 // Малая медведица
 Console.SetCursorPosition(142, 13); Console.Write("*");
@@ -510,3 +521,17 @@ Console.SetCursorPosition(160, 16); Console.Write("*");
 Console.SetCursorPosition(169, 15); Console.Write("*");
 Console.ReadKey();
 }
+
+static void BD()
+{
+    string connString = "Host=localhost;Username=levik;Password=1234;Database=postgres";
+    NpgsqlConnection con = new NpgsqlConnection(connString);NpgsqlCommand com = new NpgsqlCommand("SELECT * FROM constellations", con);
+    con.Open();
+    Console.WriteLine("");
+    NpgsqlDataReader reader = com.ExecuteReader();
+    while (reader.Read())
+    {
+        Console.WriteLine($"{reader[0]},{reader[1]},{reader[2]}, {reader[3]}, {reader[4]}, {reader[5]}");
+    }con.Close();
+}
+Console.ReadKey();

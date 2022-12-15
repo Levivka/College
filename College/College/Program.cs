@@ -1,4 +1,9 @@
-﻿using Npgsql;
+﻿using System.Linq.Expressions;
+using Npgsql;
+using System.Globalization;
+using System.Net;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+
 
 Console.WriteLine(
     "Введите номер работы с которой будем работать: \n 1 - Типы данных в c# \n 2 - Сортировка пузырьком и линейный поиск \n 3 - Нахождение n-ого числа Фибоначи \n 4 - Нахождение сумм арифмитической и геометрической прогрессий \n 5 - Нахождение общего делителя \n 6 - Перевод из десятичной системы счисчления в двоичную \n 7 - Тернарные операции для бинарного выбора \n 8 - Рассчитывание ДКТ для матрицы 8 порядка \n 9 - Карта звёздного неба");
@@ -6,7 +11,6 @@ int work = Convert.ToInt32(Console.ReadLine());
 switch (work)
 {
     case 1:
-
         TypesCsharp();
         break;
     case 2:
@@ -34,7 +38,10 @@ switch (work)
         StarMap();
         break;
     case 10:
-        
+        BitovieOper();
+        break;
+    case 11:
+        Kalkylator();
         break;
 }
 
@@ -80,9 +87,7 @@ static void TypesCsharp()
 static void Sorting()
 {
     Console.WriteLine("Введите размер массива для сортировки значений из них методом пузырька:");
-    int ammount =
-        Convert.ToInt32(Console
-            .ReadLine()); //динамический массив (n), где n и y вводятся с консоли (Console.ReadLine()) и заполняется через класс Random (rand.Next()) \/
+    int ammount = Convert.ToInt32(Console.ReadLine()); //динамический массив (n), где n и y вводятся с консоли (Console.ReadLine()) и заполняется через класс Random (rand.Next()) \/
     int[] array = new int[ammount];
     Random rand = new Random();
     for (int i = 0; i < array.Length; i++)
@@ -253,6 +258,7 @@ static void Progressia()
             {
                 sum = 0;
                 Console.WriteLine("{0}", sum);
+                
             }
             else
             {
@@ -404,66 +410,81 @@ static void TernarnieOp()
 
 static void Dkt()
 {
-    Console.WriteLine("Введите количество строк в нашей матрице:");
-    int rows = Convert.ToInt32(Console.ReadLine());
-    Console.WriteLine("Введите количество столбцов в нашей матрице:");
-    int colls = Convert.ToInt32(Console.ReadLine());
-    Console.WriteLine();
-    Console.WriteLine("Исходная матрица:");
-    int[,] mas = new int[rows, colls];
-    Random rnd = new Random();
-    for (int i = 0; i < rows; i++)
+    Console.WriteLine("Что будем делать? \n 1 - Транспонирование матрицы \n 2 - Рассчитывание ДКТ матрицы 8-ого порядка");
+    int idwork = Convert.ToInt32(Console.ReadLine());
+    switch (idwork)
     {
-        for (int j = 0; j < colls; j++)
+        case 1:
+            Transpose();
+            break;
+        case 2:
+            DKT8();
+            break;
+    }
+
+    void Transpose()
+    {
+        Console.WriteLine("Введите количество строк в нашей матрице:");
+        int rows = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Введите количество столбцов в нашей матрице:");
+        int colls = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine();
+        Console.WriteLine("Исходная матрица:");
+        int[,] mas = new int[rows, colls];
+        Random rnd = new Random();
+        for (int i = 0; i < rows; i++)
         {
-            mas[i, j] = rnd.Next(0, 10);
-            Console.Write(mas[i, j] + "\t");
+            for (int j = 0; j < colls; j++)
+            {
+                mas[i, j] = rnd.Next(0, 10);
+                Console.Write(mas[i, j] + "\t");
+            }
+
+            Console.WriteLine();
         }
 
         Console.WriteLine();
+        Console.WriteLine("Транспонированная матрица:");
+        int[,] Transpose = new int[colls, rows];
+        for (int i = 0; i < colls; i++)
+        {
+            for (int j = 0; j < rows; j++)
+            {
+                Transpose[i, j] = mas[j, i];
+
+                Console.Write(Transpose[i, j] + "\t");
+            }
+
+            Console.WriteLine();
+        }
     }
 
-    Console.WriteLine();
-    Console.WriteLine("Транспонированная матрица:");
-    int[,] Transpose = new int[colls, rows];
-    for (int i = 0; i < colls; i++)
+    void DKT8()
     {
-        for (int j = 0; j < rows; j++)
+        Console.WriteLine();
+        Console.WriteLine("ДКТ матрицы 8 порядка:");
+        //убрать массив и использовать i/j (просто инкременты цикла)
+        double[,] massive2 = new double[8,8];
+        //rows & colls всегда равны 8
+        for (int i = 0; i < 8; i++)
         {
-            Transpose[i, j] = mas[j, i];
+            for (int j = 0; j < 8; j++)
+            {
+                if (j == 0) massive2[i, j] = (1 / Math.Sqrt(8));
+                if (j > 0) massive2[i, j] = Math.Sqrt(0.25) * Math.Cos((2 * i + 1) * j * Math.PI / (2 * 8));
+                Console.Write($"{massive2[i, j]} \t");
+            }
 
-            Console.Write(Transpose[i, j] + "\t");
+            Console.WriteLine();
         }
 
-        Console.WriteLine();
+        Console.ReadKey();
     }
-
-    Console.WriteLine();
-    Console.WriteLine("ДКТ матрицы 8 порядка:");
-    //убрать массив и использовать i/j (просто инкременты цикла)
-    double[,] massive =
-    {
-        { 1, 2, 3, 4, 5, 6, 7, 8 }, { 1, 2, 3, 4, 5, 6, 7, 8 }, { 1, 2, 3, 4, 5, 6, 7, 8 }, { 1, 2, 3, 4, 5, 6, 7, 8 },
-        { 1, 2, 3, 4, 5, 6, 7, 8 }, { 1, 2, 3, 4, 5, 6, 7, 8 }, { 1, 2, 3, 4, 5, 6, 7, 8 }, { 1, 2, 3, 4, 5, 6, 7, 8 }
-    };
-    //rows & colls всегда равны 8
-    for (int i = 0; i < rows; i++)
-    {
-        for (int j = 0; j < colls; j++)
-        {
-            if (j == 0) massive[i, j] = (1 / Math.Sqrt(8));
-            if (j > 0) massive[i, j] = Math.Sqrt(0.25) * Math.Cos((2 * i + 1) * j * Math.PI / (2 * 8));
-            Console.Write($"{massive[i, j]} \t");
-        }
-
-        Console.WriteLine();
-    }
-
-    Console.ReadKey();
 }
 
 static void StarMap()
 {
+    
     int length = 24;
     int shirina = 180;
     for (int i = 0; i < length; i++)
@@ -489,127 +510,180 @@ static void StarMap()
 
         Console.WriteLine();
     }
+    int kolvo = 0;
+    StreamReader stars = new StreamReader("/home/userpc/Downloads/types.txt");
+      
+    string symbols;
 
-    // Треугольник 
-    Console.SetCursorPosition(20, 2);
-    Console.Write("*");
-    Console.SetCursorPosition(25, 2);
-    Console.Write("*");
-    Console.SetCursorPosition(22, 5);
-    Console.Write("*");
+    string giant = "@";
+    string mid = "*";
+    string small = ".";
 
-// Большая медведица
-    Console.SetCursorPosition(113, 4);
-    Console.Write("*");
-    Console.SetCursorPosition(115, 2);
-    Console.Write("*");
-    Console.SetCursorPosition(125, 3);
-    Console.Write("*");
-    Console.SetCursorPosition(124, 5);
-    Console.Write("*");
-    Console.SetCursorPosition(128, 6);
-    Console.Write("*");
-    Console.SetCursorPosition(130, 7);
-    Console.Write("*");
-    Console.SetCursorPosition(134, 8);
-    Console.Write("*");
-
-//  Рак
-    Console.SetCursorPosition(45, 2);
-    Console.Write("*");
-    Console.SetCursorPosition(47, 4);
-    Console.Write("*");
-    Console.SetCursorPosition(46, 5);
-    Console.Write("*");
-    Console.SetCursorPosition(42, 7);
-    Console.Write("*");
-    Console.SetCursorPosition(55, 8);
-    Console.Write("*");
-
-// Щит
-    Console.SetCursorPosition(14, 9);
-    Console.Write("*");
-    Console.SetCursorPosition(17, 12);
-    Console.Write("*");
-    Console.SetCursorPosition(18, 13);
-    Console.Write("*");
-    Console.SetCursorPosition(28, 16);
-    Console.Write("*");
-    Console.SetCursorPosition(25, 12);
-    Console.Write("*");
-
-
-// Северная корона
-    Console.SetCursorPosition(70, 9);
-    Console.Write("*");
-    Console.SetCursorPosition(77, 10);
-    Console.Write("*");
-    Console.SetCursorPosition(82, 8);
-    Console.Write("*");
-    Console.SetCursorPosition(81, 7);
-    Console.Write("*");
-    Console.SetCursorPosition(78, 6);
-    Console.Write("*");
-    Console.SetCursorPosition(74, 6);
-    Console.Write("*");
-
-// Хвост змеи
-    Console.SetCursorPosition(96, 9);
-    Console.Write("*");
-    Console.SetCursorPosition(96, 11);
-    Console.Write("*");
-    Console.SetCursorPosition(99, 10);
-    Console.Write("*");
-    Console.SetCursorPosition(110, 11);
-    Console.Write("*");
-    Console.SetCursorPosition(113, 14);
-    Console.Write("*");
-
-// Возничий
-    Console.SetCursorPosition(53, 16);
-    Console.Write("*");
-    Console.SetCursorPosition(44, 18);
-    Console.Write("*");
-    Console.SetCursorPosition(49, 19);
-    Console.Write("*");
-    Console.SetCursorPosition(44, 19);
-    Console.Write("*");
-    Console.SetCursorPosition(48, 17);
-    Console.Write("*");
-    Console.SetCursorPosition(52, 18);
-    Console.Write("*");
-
-// Малая медведица
-    Console.SetCursorPosition(142, 13);
-    Console.Write("*");
-    Console.SetCursorPosition(148, 14);
-    Console.Write("*");
-    Console.SetCursorPosition(152, 15);
-    Console.Write("*");
-    Console.SetCursorPosition(160, 14);
-    Console.Write("*");
-    Console.SetCursorPosition(168, 13);
-    Console.Write("*");
-    Console.SetCursorPosition(160, 16);
-    Console.Write("*");
-    Console.SetCursorPosition(169, 15);
-    Console.Write("*");
+    while ((symbols = stars.ReadLine()) != null)
+    {
+        if (kolvo == 0) small = symbols;
+        if (kolvo == 1) mid = symbols;
+        if (kolvo == 2) giant = symbols;
+        kolvo++;
+    }
     Console.ReadLine();
     Console.SetCursorPosition(1, 25); Console.WriteLine("");
     string connString = "Host=localhost;Username=levik;Password=1234;Database=postgres";
     NpgsqlConnection con = new NpgsqlConnection(connString);
-    NpgsqlCommand com = new NpgsqlCommand("SELECT * FROM constellations",con);
+    NpgsqlCommand com = new NpgsqlCommand("select * from star inner join constellations on (star.idconstellation = constellations.idcons) ",con);
     con.Open();
     Console.WriteLine("");
     NpgsqlDataReader reader = com.ExecuteReader();
+    
+    List<JoinStart> start = new List<JoinStart>();
     while (reader.Read())
+    while (reader.Read())   
     {
-        Console.WriteLine($"{reader[0]}\n{reader[1]}{reader[2]}");
+        start.Add(new JoinStart(reader[1].ToString(), (int)reader[3],(int)reader[4],reader[2].ToString()));
+        
+        Console.SetCursorPosition((int)reader[3], (int)reader[4]);
+        if (reader[5].ToString() == "маленькая") Console.Write("Субгигант");
+        if (reader[5].ToString() == "средняя") Console.Write("Гигант");
+        if (reader[5].ToString() == "гигант") Console.Write("Сверхгигант");
     }
+    foreach (var item in start)
+    {
+        Console.WriteLine("" + item.nameStar);
+    }
+
+
+
+
+    while (true)
+    {
+        int choise = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Название "+start[choise].nameStar+" X:"+ start[choise].corX+" Y:"+start[choise].corY + " "+start[choise].description);   
+    
+    }
+
+   
+
 
     con.Close();
 
     
 }
 
+static void BitovieOper()
+{
+    Console.WriteLine("Введите 4 значения для проведение побитовых операций над ними:");
+    int a = Convert.ToInt32(Console.ReadLine());
+    int b = Convert.ToInt32(Console.ReadLine());
+    int c = Convert.ToInt32(Console.ReadLine());
+    int d = Convert.ToInt32(Console.ReadLine());
+    int ammount = 0;
+    int summ;
+
+    int Primer1()
+    {
+        summ = a * b * c;
+        Console.WriteLine("{0} * {1} * {2} = {3}", a, b, c, summ);
+        return summ;
+    }
+
+    int Primer2()
+    {
+        summ = a * (b + c);
+        Console.WriteLine("{0} * ({1} + {2}) = {3}", a, b, c, summ);
+        return summ;
+    }
+
+    int Primer3()
+    {
+        summ = (~a + 1) * b;
+        Console.WriteLine("-{0} * {1} = {2}", a, b, summ);
+        return summ;
+    }
+
+    void Primer4()
+    {
+        if (a < b)
+        {
+            Console.WriteLine("{0} меньше {1}", a, b);
+        }
+
+        else if (a > b)
+        {
+            Console.WriteLine("{0} больше {1}", a, b);
+        }
+        Console.WriteLine($"До: {Convert.ToString(a, toBase: 2)}");
+
+        int y = a << 4;
+        Console.WriteLine($"После:  {Convert.ToString(y, toBase: 2)}");
+    }
+
+    void Primer5()
+    {
+
+    }
+
+
+    while (ammount < 5)
+    {
+        ammount++;
+        if (ammount == 1)
+        {
+            Primer1();
+        }
+        else if (ammount == 2)
+        {
+            Primer2();
+        }
+        else if (ammount == 3)
+        {
+            Primer3();
+        }
+        else if (ammount == 4)
+        {
+            Primer4();
+        }
+        else if (ammount == 5)
+        {
+            Primer5();
+        }
+    }
+}
+
+static void Kalkylator()
+{
+    Console.WriteLine("Введите 3 числа");
+    int a = Convert.ToInt32(Console.ReadLine());
+    int b = Convert.ToInt32(Console.ReadLine());
+    int c = Convert.ToInt32(Console.ReadLine());
+    int i = b & c;
+    double r = Math.Log(i, a);
+    Console.WriteLine($"log {i} по основанию {a} = " + r);
+    int f = a + b;
+    Console.WriteLine($"({a} + {b})^3 =" + Math.Pow(f, 3));
+    int g = a - b;
+    Console.WriteLine($"{a} - {b})^3 =" + Math.Pow(g,3));
+    Console.WriteLine("Введите 4 числа");
+    int a1 = Convert.ToInt32(Console.ReadLine());
+    int b1 = Convert.ToInt32(Console.ReadLine());
+    int c1 = Convert.ToInt32(Console.ReadLine());
+    int d1 = Convert.ToInt32(Console.ReadLine());
+    int i1 = a1 ^ b1;
+    int f1 = (1 & b1) & ~c1 & b1 << d1;
+    Console.WriteLine();
+}
 Console.ReadKey();
+
+class  JoinStart{
+    public string nameStar;
+    public int corX;
+    public int corY;
+    public string description;
+                            
+    public JoinStart(string nameStar, int corX, int corY,string description)
+    {                
+        this.nameStar = nameStar;
+        this.corX = corX;
+        this.corY = corY;
+        this.description = description;
+    }
+}

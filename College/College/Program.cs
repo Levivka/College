@@ -484,8 +484,7 @@ static void Dkt()
 
 static void StarMap()
 {
-    
-    int length = 24;
+    int length = 30;
     int shirina = 180;
     for (int i = 0; i < length; i++)
     {
@@ -510,63 +509,64 @@ static void StarMap()
 
         Console.WriteLine();
     }
+
     int kolvo = 0;
-    StreamReader stars = new StreamReader("/home/userpc/Downloads/types.txt");
-      
+    StreamReader star = new StreamReader("/home/userpc/Загрузки/kfg.txt");
+
     string symbols;
 
-    string giant = "@";
-    string mid = "*";
-    string small = ".";
+    string giant = "";
+    string mid = "";
+    string small = "";
 
-    while ((symbols = stars.ReadLine()) != null)
+    while ((symbols = star.ReadLine()) != null)
     {
         if (kolvo == 0) small = symbols;
         if (kolvo == 1) mid = symbols;
         if (kolvo == 2) giant = symbols;
         kolvo++;
     }
+
+
     Console.ReadLine();
-    Console.SetCursorPosition(1, 25); Console.WriteLine("");
+    Console.SetCursorPosition(1, 25);
+    Console.WriteLine("");
     string connString = "Host=localhost;Username=levik;Password=1234;Database=postgres";
     NpgsqlConnection con = new NpgsqlConnection(connString);
-    NpgsqlCommand com = new NpgsqlCommand("select * from star inner join constellations on (star.idconstellation = constellations.idcons) ",con);
+    NpgsqlCommand com =
+        new NpgsqlCommand(
+            "select * from star inner join constellations on (star.idconstellation = constellations.idcons) ", con);
     con.Open();
     Console.WriteLine("");
     NpgsqlDataReader reader = com.ExecuteReader();
-    
+
     List<JoinStart> start = new List<JoinStart>();
     while (reader.Read())
-    while (reader.Read())   
     {
-        start.Add(new JoinStart(reader[1].ToString(), (int)reader[3],(int)reader[4],reader[2].ToString()));
-        
-        Console.SetCursorPosition((int)reader[3], (int)reader[4]);
-        if (reader[5].ToString() == "маленькая") Console.Write("Субгигант");
-        if (reader[5].ToString() == "средняя") Console.Write("Гигант");
-        if (reader[5].ToString() == "гигант") Console.Write("Сверхгигант");
+        start.Add(new JoinStart(reader[1].ToString(), (int)reader[4], (int)reader[5], reader[2].ToString()));
+
+        Console.SetCursorPosition((int)reader[4], (int)reader[5]);
+        if (reader[6].ToString() == "Субгигант") Console.Write(small);
+        if (reader[6].ToString() == "Гигант") Console.Write(mid);
+        if (reader[6].ToString() == "Сверхгигант") Console.Write(giant);
     }
+    Console.SetCursorPosition(1,shirina);
+    Console.WriteLine("Название звёзд:");
     foreach (var item in start)
     {
-        Console.WriteLine("" + item.nameStar);
+        Console.WriteLine("" + item.nameStar + "  -  " + item.description.Substring(0,60)+ "...");
     }
-
-
-
+    
 
     while (true)
     {
         int choise = Convert.ToInt32(Console.ReadLine());
-        Console.WriteLine("Название "+start[choise].nameStar+" X:"+ start[choise].corX+" Y:"+start[choise].corY + " "+start[choise].description);   
-    
+        Console.WriteLine("Название " + start[choise].nameStar + " X:" + start[choise].corX + " Y:" +
+                          start[choise].corY + " " + start[choise].description);
+
     }
 
-   
-
-
     con.Close();
-
-    
 }
 
 static void BitovieOper()
